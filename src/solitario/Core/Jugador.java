@@ -17,8 +17,6 @@ package solitario.Core;
  *
  */
 public class Jugador {
-	
-	
 
 }
 

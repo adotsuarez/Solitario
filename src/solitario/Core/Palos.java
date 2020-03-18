@@ -15,5 +15,8 @@ package solitario.Core;
  *
  */
 public enum Palos {
-	OROS, COPAS, ESPADAS, BASTOS
+	OROS,
+	COPAS,
+	ESPADAS,
+	BASTOS
 }

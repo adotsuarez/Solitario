@@ -13,28 +13,26 @@ import java.util.Scanner;
  * https://github.com/adotsuarez/Solitario
  *
  */
-public class ES
-{
+public class ES {
     public static Scanner leer = new Scanner(System.in);
     
-    public static String pideCadena(String mensaje)
-    {
-         // Poner el mensaje
-            System.out.print(mensaje);
-               
-             // Pedir
-            return leer.nextLine();
-               
-    }
-    
-        
-    public static int pideNumero(String mensaje)
-    {
-        
-            System.out.print(mensaje);
+    public static String pideCadena(String mensaje) {
 
-            // Pedir
-            return Integer.parseInt(leer.nextLine());
-       
+        // Poner el mensaje
+        System.out.print(mensaje);
+
+        // Pedir
+        return leer.nextLine();
+
+    }
+
+    public static int pideNumero(String mensaje) {
+
+        // Poner el mensaje
+        System.out.print(mensaje);
+
+        // Pedir
+        return Integer.parseInt(leer.nextLine());
+
     }
 }

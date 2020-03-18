@@ -16,12 +16,9 @@ package solitario.IU;
  *
  */
 public class Solitario {
-    
 
-public static void inicioPartida(){
+    public static void inicioPartida(){
     
-    
-    
-} 
+    }
     
 }

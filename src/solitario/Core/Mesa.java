@@ -39,6 +39,4 @@ import java.util.Stack;
 public class Mesa {
     private Stack<Carta> [][] montonInterior;
     private Stack<Carta> [] montonExterior;
-   
-    
 }
