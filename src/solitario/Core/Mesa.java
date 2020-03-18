@@ -21,16 +21,20 @@ clase para representar la mesa de juego, y en particular de los métodos que se 
         public void push(Carta item);
         // Produce: Introduce la Carta en el tope de la pila.
  */
-
 package solitario.Core;
 
 import java.util.Stack;
 
-
-
 /**
  *
- * @author AEDI
+ * @author
+ * Iago Sánchez García, '@LeeroyMerlin'
+ * Manuel Alejandro Silva Cheda, '@AlejandroCheda'
+ * Agustín Suárez Martínez, '@adotsuarez' [PM]
+ *
+ * Project for [AED1] - 1st grade CSE - ESEI.
+ * https://github.com/adotsuarez/Solitario
+ *
  */
 public class Mesa {
     private Stack<Carta> [][] montonInterior;
