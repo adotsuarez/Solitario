@@ -4,6 +4,9 @@ import static solitario.IU.Solitario.inicioPartida;
 
 /**
  *
+ * Archivo [Main.java]
+ * Ejecutar programa desde aquí.
+ * 
  * @author
  * Iago Sánchez García, '@LeeroyMerlin'
  * Manuel Alejandro Silva Cheda, '@AlejandroCheda'
