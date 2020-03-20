@@ -45,5 +45,5 @@ El juego continúa siempre que exista un movimiento posible, es decir, un movimi
 
 ## Creadores y licencias
 
-- El programa fue creado originalmente _'adotsuarez'_, _'IAGO'_, _'ALEJANDRO'_ y _'??'_.
+- El programa fue creado originalmente _'@adotsuarez'_, _'@LeeroyMerlin'_, _'@AlejandroCheda'_ y _'@TinaP5'_.
 - Para más información sobre licencias, por favor, lee el archivo LICENSE.

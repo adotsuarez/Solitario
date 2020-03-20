@@ -30,6 +30,7 @@ import java.util.Stack;
  * @author
  * Iago Sánchez García, '@LeeroyMerlin'
  * Manuel Alejandro Silva Cheda, '@AlejandroCheda'
+ * Cristina Lavadores Pedrosa, '@TinaP5'
  * Agustín Suárez Martínez, '@adotsuarez' [PM]
  *
  * Project for [AED1] - 1st grade CSE - ESEI.
