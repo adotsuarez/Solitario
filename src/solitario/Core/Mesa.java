@@ -28,13 +28,10 @@ import java.util.Stack;
 /**
  *
  * @author
- * Iago Sánchez García, '@LeeroyMerlin'
- * Manuel Alejandro Silva Cheda, '@AlejandroCheda'
- * Cristina Lavadores Pedrosa, '@TinaP5'
- * Agustín Suárez Martínez, '@adotsuarez' [PM]
- *
- * Project for [AED1] - 1st grade CSE - ESEI.
- * https://github.com/adotsuarez/Solitario
+ * - Iago Sanchez Garcia, '@LeeroyMerlin'
+ * - Manuel Alejandro Silva Cheda, '@AlejandroCheda'
+ * - Cristina Lavadores Pedrosa, '@TinaP5'
+ * - Agustin Suarez Martinez, '@adotsuarez' [PM]
  *
  */
 public class Mesa {
