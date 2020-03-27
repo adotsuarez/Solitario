@@ -1,5 +1,5 @@
 ---
-Descripción: >-
+description: >-
   Este es un proyecto para la asignatura de Algoritmos y Estructuras de Datos 1
   [AED1] de Ingeniería Informática de la Universidad de Vigo.
 ---
