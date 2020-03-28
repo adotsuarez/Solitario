@@ -10,4 +10,4 @@ El solitario es un juego de cartas para el que no necesitas a nadie más. Este s
 
 _En este proyecto se harán modificaciones de manera progresiva para mejorar su funcionamiento y eficiencia, por este motivo, **es posible que el programa no funcione por completo en algunas versiones**._
 
-Puedes consultar toda la información [aquí].(https://adotdev.gitbook.io/solitario/ "Solitario en GitBook")
+Puedes consultar toda la información [aquí](https://adotdev.gitbook.io/solitario/ "Solitario en GitBook").
