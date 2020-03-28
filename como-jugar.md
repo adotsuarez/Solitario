@@ -21,7 +21,7 @@ Cada carta se representa por:
 * **1 o 2 dígitos**: del _`1`_ \(As\) al _`7`_ y del _`10`_ \(Sota\) al _`12`_ \(Rey\).
 * **1 carácter**: _`B`_ \(Bastos\), _`C`_ \(Copas\), _`E`_ \(Espadas\) u _`O`_ \(Oros\).
 
-De esta forma, la carta en la celda _**`C2`**_  \(_`12C`_\) representa el 12 \(Rey\) de Oros y la carta en _**`A3`**_  \(_`7C`_\) representa el 7 de Copas.
+De esta forma, la carta en la celda _**`C2`**_  \(_`12C`_\) representa el 12 \(Rey\) de Copas y la carta en _**`B3`**_  \(_`5B`_\) representa el 5 de Bastos.
 
 #### Ejemplo de juego y selección de celdas
 
