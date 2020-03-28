@@ -2,6 +2,8 @@
 
 ## La UI _\(Interfaz de usuario\)_
 
+### Ejemplo de juego
+
 #### Inicio del juego
 
 ![Primera pantalla al iniciar.](.gitbook/assets/ux.002.png)
@@ -39,7 +41,7 @@ Hemos escrito la celda que queremos ver.
 Para seleccionar una celda, puedes escribir primero la fila y después la columna o viceversa. Incluso en minúsculas.
 {% endhint %}
 
-En este caso, al seleccionar esta celda y pulsar `↩ (Enter)`, automáticamente aparecen las opciones de interacción con esa carta:
+En este caso, al seleccionar esta celda y pulsar `↩` \(Enter\), automáticamente aparecen las opciones de interacción con esa carta:
 
 ![Carta seleccionada.](.gitbook/assets/ux.005.png)
 
@@ -94,6 +96,10 @@ Si deseas cancelar la selección de una carta para volver a la vista en reposo, 
 {% endhint %}
 
 En este ejemplo había un _`1 C`_ \(As de Copas\) debajo, así que lo hemos seleccionado y movido al primer _**`Stack`**_ disponible \(en este caso, como solo el primero estaba ocupado, se ha movido a _**`Stack 2`**_\). Dejamos así visible la carta que estaba debajo de esta en la celda _**`B1`**_, pero como no había ninguna, simplemente se muestra vacía:
+
+{% hint style="danger" %}
+No puedes mover cartas a montones vacíos de la **zona interior**.
+{% endhint %}
 
 ![La celda B1 est&#xE1; vac&#xED;a. Esto significa que ya no quedan cartas en esa pila.](.gitbook/assets/ux.025.png)
 
@@ -170,5 +176,31 @@ En cualquiera de estos 2 casos, de manera automática el juego detectará que ha
 Todos los comandos pueden ser escritos en mayúsculas o minúsculas, total o parcialmente.
 {% endhint %}
 
+## Resumen del juego
 
+Para jugar son necesarias **40 cartas de la baraja española**. La baraja está compuesta de 4 palos \(Oros, Espadas, Bastos y Copas\) cada uno con siete cartas enumeradas del _`1`_ al _`7`_ y tres figuras \(Sota, Caballo y Rey\) correspondientes a los números _`10`_, _`11`_ y _`12`_ respectivamente.
+
+### Inicio
+
+Se colocan **32 cartas**, formando 4 columnas y 4 filas \(esta es la **zona interior**\). A continuación, se colocan **8 cartas** encima de aquellas que están en las diagonales.
+
+* Puedes mover una carta de la **zona interior** a la **zona exterior** solo si:
+  * La última carta almacenada en el montón exterior es del mismo palo y una unidad más pequeña que la que se quiere colocar.
+  * El `Stack` exterior está vacío. En este caso, solo podrás colocar una carta que contenga un `1` \(As\).
+* En la **zona interior** puedes mover una carta sobre otra, siempre que la carta que se va a ocultar sea del mismo palo y una unidad mayor que la que se mueve. Este movimiento tiene como objetivo hacer visible la carta que está debajo de la que se está moviendo.
+* No se puede mover una carta a un hueco vacío en la **zona interior**.
+
+{% hint style="info" %}
+Recuerda que después del _`7`_ viene el _`10`_ \(Sota\).
+{% endhint %}
+
+### Objetivo
+
+El objetivo es ir quitando las cartas de la **zona interior** de menor a mayor colocándolas en cuatro montones de la **zona exterior** \(uno para cada palo\) que han de empezar con la carta numerada con el `1`.
+
+### Final
+
+Habrás acabado cuando no queden cartas en la **zona interior**. Esto es, que todas las cartas se encuentren ordenadas en los `Stack` **exteriores**. Entonces habrás ganado.
+
+Si has llegado a un punto en el que ya no puedes hacer más movimientos en la **zona interior** y no puedes colocar ninguna carta en la **zona exterior**, habrás perdido.
 

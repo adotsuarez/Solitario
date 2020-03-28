@@ -6,8 +6,12 @@
 2. Después simplemente ábrelo y ¡listo!
 
 {% hint style="info" %}
-Si deseas ver el código fuente del programa, visita esta página.
+Si deseas ver el código fuente, échale un ojo a la página "El programa"
 {% endhint %}
+
+{% page-ref page="el-programa.md" %}
+
+
 
 
 

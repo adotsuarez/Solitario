@@ -40,10 +40,7 @@ El juego continúa siempre que exista un movimiento posible, es decir, un movimi
 * **No hay más movimientos posibles y quedan cartas en la zona-interior**
   * Puede ocurrir que el solitario no finalice, quedan cartas en la zona-interior y no es posible ningún movimiento. **Objetivo no conseguido**.
 
-## Más información
-
-* Este proyecto se distribuye con los archivos \*.java necesarios para el proyecto en sí, así como la carpeta nbproject, que permite abrir el proyecto en Netbeans.
-* En la carpeta dist/javadoc, reside la documentación \(JavaDoc\) del proyecto.
+## 
 
 ## Creadores y licencias
 
