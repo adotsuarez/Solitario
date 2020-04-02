@@ -5,6 +5,8 @@
  */
 package solitario.Core;
 
+import java.util.Stack;
+
 /**
  *
  * @author
@@ -15,11 +17,6 @@ package solitario.Core;
  *
  */
 public class Baraja {
-	
-	
-		
-	
-	
-	
-	
+
+
 }

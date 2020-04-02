@@ -35,6 +35,8 @@ public class Solitario {
                 nombreUsuario = pantallaInicio();
             } while (nombreUsuario.length() == 0);
 
+            load(nombreUsuario);
+
             // ATENCION! - REPL SIN COMPLETAR
 
         } while (repeatGame);
@@ -71,8 +73,10 @@ public class Solitario {
      *         false: No se puede colocar encima
      */
     private static boolean stackable(Carta toStack, Carta stackOn) {
-        boolean toret;
-        // Code
+        boolean toret = false;
+        if (toStack) {
+            // Code
+        }
         return toret;
     }
 }
