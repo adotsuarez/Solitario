@@ -21,6 +21,17 @@ import java.util.Scanner;
  */
 public class Solitario {
 
+    public static enum Mode {
+        RESTING,
+        INFOSCREEN,
+        CARDSELECTED
+    }
+
+    /** Juego ejecutándose
+     */
+    public static boolean gameOn;
+    public static Mode gameMode;
+
     /** Programa principal
      */
     public static void inicioPartida(){
@@ -29,6 +40,8 @@ public class Solitario {
         // REPL
         do {
             repeatGame = false;
+            gameOn = true;
+            gameMode = Mode.RESTING;
 
             String nombreUsuario;
             do {
@@ -40,6 +53,7 @@ public class Solitario {
             // ATENCION! - REPL SIN COMPLETAR
 
         } while (repeatGame);
+        gameOn = false;
     }
 
     /** Muestra pantalla inicio
@@ -66,16 +80,28 @@ public class Solitario {
         ES.box(mesa);
     }
 
+    // Verificaciones para apilar
+
     /** Verifica si una carta puede ser colocada encima de otra
      * @param toStack Carta a apilar
      * @param stackOn Ultima carta de la pila en la que se quiere colocar
+     * @param zonaExterior true: El destino esta en la zona exterior
+     *      *              / false: El destino esta en la zona interior
      * @return true: Se puede colocar encima
-     *         false: No se puede colocar encima
+     *         / false: No se puede colocar encima
      */
-    private static boolean stackable(Carta toStack, Carta stackOn) {
+    public static boolean stackable(Carta toStack, Carta stackOn, boolean zonaExterior) {
         boolean toret = false;
-        if (toStack) {
-            // Code
+        if (zonaExterior) {
+            if (stackOn.getPalo() == toStack.getPalo()
+                    && stackOn.getValor() + 1 == toStack.getValor()) {
+                toret = true;
+            }
+        } else {
+            if (stackOn.getPalo() == toStack.getPalo()
+                    && stackOn.getValor() == toStack.getValor() + 1) {
+                toret = true;
+            }
         }
         return toret;
     }
