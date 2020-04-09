@@ -340,9 +340,9 @@ public class ES {
     public static boolean validInput(String opt) {
         if (!Objects.equals(opt, "*")) {
             if (opt.length() == 2) {
-                return gameOn;
+                return gameMode != Solitario.Mode.STOPPED;
             } else if (Objects.equals(opt, "STACK")) {
-                return gameOn && gameMode == Solitario.Mode.CARDSELECTED;
+                return gameMode == Solitario.Mode.CARDSELECTED;
             } else {
                 return true;
             }

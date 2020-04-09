@@ -24,23 +24,23 @@ public class Solitario {
     public static enum Mode {
         RESTING,
         INFOSCREEN,
-        CARDSELECTED
+        CARDSELECTED,
+        STOPPED
     }
 
     /** Juego ejecutándose
      */
-    public static boolean gameOn;
-    public static Mode gameMode;
+    public static Mode gameMode = Mode.STOPPED;
 
     /** Programa principal
      */
     public static void inicioPartida(){
+        gameMode = Mode.RESTING;
         boolean repeatGame;
 
         // REPL
         do {
             repeatGame = false;
-            gameOn = true;
             gameMode = Mode.RESTING;
 
             String nombreUsuario;
@@ -53,7 +53,7 @@ public class Solitario {
             // ATENCION! - REPL SIN COMPLETAR
 
         } while (repeatGame);
-        gameOn = false;
+        gameMode = Mode.STOPPED;
     }
 
     /** Muestra pantalla inicio
