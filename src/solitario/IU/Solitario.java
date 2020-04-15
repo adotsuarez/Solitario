@@ -35,7 +35,6 @@ public class Solitario {
     /** Programa principal
      */
     public static void inicioPartida(){
-        gameMode = Mode.RESTING;
         boolean repeatGame;
 
         // REPL
@@ -49,6 +48,8 @@ public class Solitario {
             } while (nombreUsuario.length() == 0);
 
             load(nombreUsuario);
+
+
 
             // ATENCION! - REPL SIN COMPLETAR
 
@@ -75,7 +76,6 @@ public class Solitario {
     private static void load(String nombreUsuario) {
         Mesa mesa = new Mesa();
         Jugador jugador = new Jugador(nombreUsuario);
-        // Otros constructores de arranque
 
         ES.box(mesa);
     }
@@ -86,7 +86,7 @@ public class Solitario {
      * @param toStack Carta a apilar
      * @param stackOn Ultima carta de la pila en la que se quiere colocar
      * @param zonaExterior true: El destino esta en la zona exterior
-     *      *              / false: El destino esta en la zona interior
+     *                     / false: El destino esta en la zona interior
      * @return true: Se puede colocar encima
      *         / false: No se puede colocar encima
      */

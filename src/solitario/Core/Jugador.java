@@ -16,5 +16,7 @@ package solitario.Core;
  */
 public class Jugador {
 
+    // INPUT // -> ROW + COL
+    // OUTPUT // <- ROW + COL // <- STACK
 }
 

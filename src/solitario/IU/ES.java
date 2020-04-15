@@ -236,8 +236,14 @@ public class ES {
     private static String carta(Mesa mesa, int row, int col, String opt) {
         StringBuilder sb = new StringBuilder();
 
+        int[] selected = transformOption(opt);
+        int selectedRow = selected[0];
+        int selectedCol = selected[1];
+
         if (mesa.theresCarta(row,col)) {      // Existe alguna carta
-            if (stackable(mesa.getCarta(selectedRow,selectedCol),
+            if (selectedRow == row && selectedCol == col) {
+                sb.append(ANSI_GREEN_BACKGROUND);
+            } else if (stackable(mesa.getCarta(selectedRow,selectedCol),
                     mesa.getCarta(row,col),
                     false)) {
                 sb.append(ANSI_BLUE);
@@ -277,6 +283,10 @@ public class ES {
     private static String carta(Mesa mesa, int stack, String opt) {
         StringBuilder sb = new StringBuilder();
 
+        int[] selected = transformOption(opt);
+        int selectedRow = selected[0];
+        int selectedCol = selected[1];
+
         if (mesa.theresCarta(stack)) {      // Existe alguna carta
             if(stackable(mesa.getCarta(selectedRow,selectedCol),
                     mesa.getCarta(stack),
@@ -303,7 +313,7 @@ public class ES {
 
     /** Limpia la pantalla anadiendo 20 lineas en blanco
      */
-    public static void clearScreen() {
+    private static void clearScreen() {
         for (int i = 0; i <= 20; i++) {
             System.out.print('\n');
         }
@@ -313,7 +323,7 @@ public class ES {
      * @param opt seleccion (celda) facilitada en formato transformInput
      * @return fila [0] y columna [1] como vector de dos enteros
      */
-    public static int[] transformOption(String opt) {
+    private static int[] transformOption(String opt) {
         int[] toret = new int[2];
 
         toret[0] = opt.charAt(1) - 1;   // ROW (1-4) -> (0-3)
@@ -356,7 +366,7 @@ public class ES {
      * @return La entrada transformada
      */
     public static String transformInput(String opt) {
-        opt = opt.toUpperCase();
+        opt = opt.toUpperCase().trim();
         StringBuilder sb = new StringBuilder();
 
         if (opt.length() == 2) {                    // 2 caracteres

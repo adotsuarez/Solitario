@@ -54,6 +54,8 @@ public class Mesa {
             f1= (Integer.parseInt(en.nextLine())-1);
             
         }while(c0> -1&&c1> -1&& f0> -1&& f1> -1);
+
+
         if(!montonInterior[c0][c1].empty()||!montonInterior[f0][f1].empty()){
             if (montonInterior[c0][c1].peek().numero == 7){//supongo que carta tiene el atributo numero
                 if(((montonInterior[c0][c1].peek().numero + 3) == montonInterior[f0][f1].peek().numero) && (montonInterior[c0][c1].peek().palo == montonInterior[f0][f1].peek().palo)){
@@ -73,6 +75,7 @@ public class Mesa {
         }
         System.out.println(toString());
     }
+
     public void MovimientoExterior(){
         int c0;
         int c1;
