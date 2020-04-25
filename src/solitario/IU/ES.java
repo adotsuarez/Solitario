@@ -1,6 +1,6 @@
 package solitario.IU;
 
-import solitario.Core.Mesa;
+import solitario.Core.Jugador;
 
 import java.util.Objects;
 import java.util.Scanner;
@@ -19,61 +19,53 @@ import static solitario.IU.Solitario.*;
 public class ES {
 
     // Colours
-    private static final String ANSI_RESET = "\u001B[0m";
-    private static final String ANSI_BLACK = "\u001B[30m";
-    private static final String ANSI_RED = "\u001B[31m";
-    private static final String ANSI_GREEN = "\u001B[32m";
-    private static final String ANSI_YELLOW = "\u001B[33m";
-    private static final String ANSI_BLUE = "\u001B[34m";
-    private static final String ANSI_PURPLE = "\u001B[35m";
-    private static final String ANSI_CYAN = "\u001B[36m";
-    private static final String ANSI_WHITE = "\u001B[37m";
-    private static final String ANSI_BLACK_BACKGROUND = "\u001B[40m";
-    private static final String ANSI_RED_BACKGROUND = "\u001B[41m";
-    private static final String ANSI_GREEN_BACKGROUND = "\u001B[42m";
-    private static final String ANSI_YELLOW_BACKGROUND = "\u001B[43m";
-    private static final String ANSI_BLUE_BACKGROUND = "\u001B[44m";
-    private static final String ANSI_PURPLE_BACKGROUND = "\u001B[45m";
-    private static final String ANSI_CYAN_BACKGROUND = "\u001B[46m";
-    private static final String ANSI_WHITE_BACKGROUND = "\u001B[47m";
+    public static final String ANSI_DEFAULT = "\u001B[0m";
+    public static final String ANSI_RED = "\u001B[31m";
+    public static final String ANSI_GREEN = "\u001B[32m";
+    public static final String ANSI_YELLOW = "\u001B[33m";
+    public static final String ANSI_BLUE = "\u001B[34m";
+    public static final String ANSI_RED_BACKGROUND = "\u001B[41m";
+    public static final String ANSI_GREEN_BACKGROUND = "\u001B[42m";
 
-    public static Scanner dataInput = new Scanner(System.in);
+    /** Devuelve un mensaje de error
+     * @param msg Motivo del error
+     * @return Mensaje de error
+     */
+    public static String errorInput(String msg) {
+        StringBuilder sb = new StringBuilder(ANSI_RED_BACKGROUND);
+        sb.append(msg)
+                .append(ANSI_DEFAULT)
+                .append(ANSI_RED)
+                .append(" Input > ")
+                .append(ANSI_DEFAULT);
+        return sb.toString();
+    }
+
+    /** Devuelve un mensaje de error con input personalizado
+     * @param msg Motivo del error
+     * @param opt Pila seleccionada previamente
+     * @return Mensaje de error
+     */
+    public static String errorInput(String msg, String opt) {
+        StringBuilder sb = new StringBuilder(ANSI_RED_BACKGROUND);
+        sb.append(msg)
+                .append(ANSI_DEFAULT)
+                .append(ANSI_RED)
+                .append(" ")
+                .append(opt)
+                .append(" > ")
+                .append(ANSI_DEFAULT);
+        return sb.toString();
+    }
 
     /** Devuelve un mensaje en caja principal
      * @return String con el texto introducido por el usuario
      */
     public static String askForString() {
+        Scanner dataInput = new Scanner(System.in);
         return dataInput.nextLine();
     }
 
-    /** Devuelve un mensaje en caja principal
-     * @param msg Mensaje a mostrar
-     * @return String con el texto introducido por el usuario
-     */
-    public static String askForString(String msg) {
-        // Poner el mensaje
-        System.out.print(msg);
-        // Pedir
-        return dataInput.nextLine();
-    }
-
-    /** Devuelve un mensaje en caja principal
-     * @return Entero introducido por el usuario
-     */
-    public static int askForInt() {
-        return Integer.parseInt(dataInput.nextLine());
-    }
-
-    /** Devuelve un mensaje en caja principal
-     * @param msg Mensaje a mostrar
-     * @return Entero introducido por el usuario
-     */
-    public static int askForInt(String msg) {
-        // Poner el mensaje
-        System.out.print(msg);
-        // Pedir
-        return Integer.parseInt(dataInput.nextLine());
-    }
 
     /** Devuelve un mensaje en caja principal
      * @param msg Mensaje a mostrar
@@ -84,7 +76,7 @@ public class ES {
     public static String boxMsg(String msg, boolean input) {
         clearScreen();
 
-        StringBuilder sb = new StringBuilder(ANSI_RESET);
+        StringBuilder sb = new StringBuilder(ANSI_DEFAULT);
         StringBuilder msgInLine = new StringBuilder();
 
         // Mensaje ajustado para la caja
@@ -129,13 +121,13 @@ public class ES {
         return sb.toString();
     }
 
-    /** Devuelve una caja completa dada una mesa
-     * @param mesa Mesa completa, con sus valores
+    /** Devuelve una caja completa dado un jugador
+     * @param jugador Jugador actual
      * @return String con caja llena y linea de input
      */
-    public static String box(Mesa mesa) {
+    public static String box(Jugador jugador) {
         clearScreen();
-        StringBuilder sb = new StringBuilder(ANSI_RESET);
+        StringBuilder sb = new StringBuilder(ANSI_DEFAULT);
 
         sb.append("       A       B       C       D        Stack\n")
                 .append("   ┌-------┬-------┬-------┬-------┐  ┌-------┐\n");
@@ -146,11 +138,11 @@ public class ES {
 
             for (int col = 0; col <= 3; col++) {
                 sb.append(" | ")
-                        .append(ES.carta(mesa,row,col));
+                        .append(ES.carta(jugador,row,col));
             }
 
             sb.append(" |  | ")
-                    .append(ES.carta(mesa,row))
+                    .append(ES.carta(jugador,row))
                     .append(" |\n");
 
             if (row != 3) {
@@ -166,12 +158,12 @@ public class ES {
         return sb.toString();
     }
 
-    /** Devuelve una caja completa dada una mesa con una carta seleccionada
-     * @param mesa Mesa completa, con sus valores
+    /** Devuelve una caja completa dada un jugador con carta seleccionada
+     * @param jugador Jugador actual
      * @param opt Opcion seleccionada
      * @return String con caja llena y linea de input indicando la pila seleccionada
      */
-    public static String box(Mesa mesa, String opt) {
+    public static String box(Jugador jugador, String opt) {
         clearScreen();
         StringBuilder sb = new StringBuilder();
 
@@ -184,11 +176,11 @@ public class ES {
 
             for (int col = 0; col <= 3; col++) {
                 sb.append(" | ")
-                        .append(ES.carta(mesa,row,col,opt));
+                        .append(ES.carta(jugador,row,col,opt));
             }
 
             sb.append(" |  | ")
-                    .append(ES.carta(mesa,row,opt))
+                    .append(ES.carta(jugador,row,opt))
                     .append(" |\n");
 
             if (row != 3) {
@@ -201,110 +193,108 @@ public class ES {
         sb.append("-------------------------------------------------\n")
                 .append(ANSI_GREEN)
                 .append(opt)
-                .append(ANSI_RESET)
+                .append(ANSI_DEFAULT)
                 .append(" > ");
 
         return sb.toString();
     }
 
-
     /** Devuelve una carta formateada (la primera de la pila)
-     * @param mesa Mesa en la que se encuentra la carta pedida y seleccionada
+     * @param jugador Jugador actual
      * @param row Fila de la zona interior en la que se encuentra la carta pedida
      * @param col Columna de la zona interior en la que se encuentra la carta pedida
      * @return String con la carta pedida formateada
      */
-    private static String carta(Mesa mesa, int row, int col) {
-        StringBuilder sb = new StringBuilder(ANSI_RESET);
+    private static String carta(Jugador jugador, int row, int col) {
+        StringBuilder sb = new StringBuilder(ANSI_DEFAULT);
 
-        if (mesa.theresCarta(row,col)) {      // Existe alguna carta
-            sb.append(mesa.getCarta(row, col).toString()).append(ANSI_RESET);
+        if (!jugador.empty(row,col)) {      // Existe alguna carta
+            sb.append(jugador.viewCarta(row, col).toString()).append(ANSI_DEFAULT);
         } else {                              // No hay ninguna carta
-            sb.append("   ");
+            sb.append("     ");
         }
 
         return sb.toString();
     }
 
     /** Devuelve una carta formateada (la primera de la pila)
-     * @param mesa Mesa en la que se encuentra la carta pedida y seleccionada
+     * @param jugador Jugador actual
      * @param row Fila de la zona interior en la que se encuentra la carta pedida
      * @param col Columna de la zona interior en la que se encuentra la carta pedida
      * @param opt Carta seleccionada
      * @return String con la carta pedida formateada
      */
-    private static String carta(Mesa mesa, int row, int col, String opt) {
+    private static String carta(Jugador jugador, int row, int col, String opt) {
         StringBuilder sb = new StringBuilder();
 
         int[] selected = transformOption(opt);
-        int selectedRow = selected[0];
-        int selectedCol = selected[1];
 
-        if (mesa.theresCarta(row,col)) {      // Existe alguna carta
-            if (selectedRow == row && selectedCol == col) {
+        if (!jugador.empty(row,col)) {      // Existe alguna carta
+            if (selected[0] == row && selected[1] == col) {
                 sb.append(ANSI_GREEN_BACKGROUND);
-            } else if (stackable(mesa.getCarta(selectedRow,selectedCol),
-                    mesa.getCarta(row,col),
+            } else if (stackable(jugador.viewCarta(selected[0],selected[1]),
+                    jugador.viewCarta(row,col),
                     false)) {
                 sb.append(ANSI_BLUE);
             }
 
-            sb.append(mesa.getCarta(row,col).toString()).append(ANSI_RESET);
+            sb.append(jugador.viewCarta(row,col).toString()).append(ANSI_DEFAULT);
         } else {                             // No hay ninguna carta
-            sb.append("   ");
+            sb.append("     ");
         }
 
         return sb.toString();
     }
 
     /** Devuelve una carta formateada (la primera de la pila)
-     * @param mesa Mesa en la que se encuentra la carta pedida y seleccionada
+     * @param jugador Jugador actual
      * @param stack Pila de la zona exterior en el que se encuentra la carta pedida
      * @return String con la carta pedida formateada
      */
-    private static String carta(Mesa mesa, int stack) {
-        StringBuilder sb = new StringBuilder(ANSI_RESET);
+    private static String carta(Jugador jugador, int stack) {
+        StringBuilder sb = new StringBuilder(ANSI_DEFAULT);
 
-        if (mesa.theresCarta(stack)) {      // Existe alguna carta
-            sb.append(mesa.getCarta(stack).toString()).append(ANSI_RESET);
-        } else {                            // No hay ninguna carta
-            sb.append("   ");
+        if (!jugador.empty(stack)) {       // Existe alguna carta
+            sb.append(jugador.viewCarta(stack).toString()).append(ANSI_DEFAULT);
+        } else {                        // No hay ninguna carta
+            sb.append("     ");
         }
 
         return sb.toString();
     }
 
     /** Devuelve una carta formateada (la primera de la pila)
-     * @param mesa Mesa en la que se encuentra la carta pedida y seleccionada
+     * @param jugador Jugador actual
      * @param stack Pila de la zona exterior en el que se encuentra la carta pedida
      * @param opt Carta seleccionada
      * @return String con la carta pedida formateada
      */
-    private static String carta(Mesa mesa, int stack, String opt) {
+    private static String carta(Jugador jugador, int stack, String opt) {
         StringBuilder sb = new StringBuilder();
 
         int[] selected = transformOption(opt);
-        int selectedRow = selected[0];
-        int selectedCol = selected[1];
 
-        if (mesa.theresCarta(stack)) {      // Existe alguna carta
-            if(stackable(mesa.getCarta(selectedRow,selectedCol),
-                    mesa.getCarta(stack),
+        if (!jugador.empty(stack)) {      // Existe alguna carta
+            if(stackable(jugador.viewCarta(selected[0],selected[1]),
+                    jugador.viewCarta(stack),
                     true)) {
                 sb.append(ANSI_BLUE);
             }
-            sb.append(mesa.getCarta(stack).toString()).append(ANSI_RESET);
+            sb.append(jugador.viewCarta(stack).toString()).append(ANSI_DEFAULT);
         } else {                            // No hay ninguna carta
             int i = 0;
-            while (i<stack && mesa.theresCarta(i)) {
+
+            while (i<stack && !jugador.empty(i)) {
                 i++;
             }
-            if (i == stack) {
+
+            if (i == stack      // Pila detenida tras recorrido == Pila pedida
+                    && jugador.viewCarta(selected[0],selected[1]).getNumero() == 0) {   // opt es un as
                 sb.append(ANSI_BLUE)
-                        .append("###")
-                        .append(ANSI_RESET);
+                        .append(" ### ")
+                        .append(ANSI_DEFAULT);
             } else {
-                sb.append("   ");
+                sb.append("     ");
             }
         }
 
@@ -321,12 +311,12 @@ public class ES {
 
     /** Trasnforma una opcion/seleccion en fila/columna
      * @param opt seleccion (celda) facilitada en formato transformInput
-     * @return fila [0] y columna [1] como vector de dos enteros
+     * @return fila [0] y columna [1] como array de dos enteros
      */
-    private static int[] transformOption(String opt) {
+    public static int[] transformOption(String opt) {
         int[] toret = new int[2];
 
-        toret[0] = opt.charAt(1) - 1;   // ROW (1-4) -> (0-3)
+        toret[0] = Character.getNumericValue(opt.charAt(1)) - 1;   // ROW (1-4) -> (0-3)
 
         switch (opt.charAt(0)) {        // COL (A-D) -> (0-3)
             case 'A':   toret[1] = 0;

@@ -18,12 +18,12 @@ clase para representar la mesa de juego, y en particular de los métodos que se 
         // Produce: Devuelve la Carta del tope de la pila, sin eliminarla de ella.
         public Carta pop();
         // Produce: Elimina la Carta del tope de la pila y la devuelve.
-        public void push(Carta item);
+        public void push(Carta toPush);
         // Produce: Introduce la Carta en el tope de la pila.
  */
 package solitario.Core;
 
-import java.util.Scanner;
+import java.util.Objects;
 import java.util.Stack;
 
 /**
@@ -38,90 +38,108 @@ import java.util.Stack;
 public class Mesa {
     private Stack<Carta> [][] montonInterior;
     private Stack<Carta> [] montonExterior;
-    Scanner en = new Scanner(System.in);
-    public void MovimientoInterior(){
 
-        int c0;
-        int c1;
-        int f0;
-        int f1;
-        do{
-            System.out.println("Introduce la fila y la columna de la carta a mover");
-            c0 = (Integer.parseInt(en.nextLine())-1);
-            c1 = (Integer.parseInt(en.nextLine())-1);
-            System.out.println("Introduce la fila y la columna a donde mover la carta");
-            f0= (Integer.parseInt(en.nextLine())-1);
-            f1= (Integer.parseInt(en.nextLine())-1);
-            
-        }while(c0> -1&&c1> -1&& f0> -1&& f1> -1);
+    /** Constructor de una mesa con cartas aleatorias
+     */
+    public Mesa () {
+        Baraja baraja = new Baraja();
 
+        baraja.barajar();
 
-        if(!montonInterior[c0][c1].empty()||!montonInterior[f0][f1].empty()){
-            if (montonInterior[c0][c1].peek().numero == 7){//supongo que carta tiene el atributo numero
-                if(((montonInterior[c0][c1].peek().numero + 3) == montonInterior[f0][f1].peek().numero) && (montonInterior[c0][c1].peek().palo == montonInterior[f0][f1].peek().palo)){
-                    montonInterior[f0][f1].push(montonInterior[c0][c1].pop());
-                }else{
-                    System.out.println("Movimiento no valido");
-                }
-            }else{
-                if(((montonInterior[c0][c1].peek().numero + 1)== montonInterior[f0][f1].peek().numero)&&(montonInterior[c0][c1].peek().palo == montonInterior[f0][f1].peek().palo)){
-                    montonInterior[f0][f1].push(montonInterior[c0][c1].pop());
-                }else{
-                    System.out.println("Movimiento no valido");
-                }
-            }
-        }else{
-            System.out.println("El monton seleccionado o el monton de destino esta vacio");
-        }
-        System.out.println(toString());
-    }
+        montonInterior = new Stack [4][4];
+        montonExterior = new Stack [4];
 
-    public void MovimientoExterior(){
-        int c0;
-        int c1;
-        int f;
-        do{
-            System.out.println("Introduce la columna y la fila de la carta a mover");
-            c0 = (Integer.parseInt(en.nextLine()) - 1);
-            c1 = (Integer.parseInt(en.nextLine()) - 1);
-            
-            System.out.println("Introduce la fila del monton exterior");
-            f = (Integer.parseInt(entrada.nextLine()) - 1);
-            
-        }while(c0> -1&&c1> -1&& f> -1);
-        
-        if(montonInterior[c0][c1].peek().numero == 1){
-            
-            if(montonExterior[f].empty()){
-                
-                montonExterior[f].push(montonInterior[c0][c1].pop());
-            }else{
-                System.out.println("Solo se pueden colocar Ases en posiciones vacias");
-            }
-        }else{
-            if(!montonExterior[f].empty()){
-                
-                if(montonExterior[f].peek().numero == 7){
-                    
-                    if ((montonInterior[c0][c1].peek().numero == montonExterior[f].peek().numero + 3) && (montonInterior[c0][c1].peek().palo == montonExterior[f].peek().palo)){
-                        
-                        montonExterior[f].push(montonInterior[c0][c1].pop());
-                    }else{
-                    System.out.println("Movimiento Invalido");
-                    }
-                }else{
-                    
-                  if((montonInterior[c0][c1].peek().numero == montonExterior[f].peek().numero + 1) && (montonInterior[c0][c1].peek().palo == montonExterior[f].peek().palo)){
-                      
-                    montonExterior[f].push(montonInterior[c0][c1].pop());
-                }else{
-                    System.out.println("Movimiento Invalido");
-                }
-                }
-            }else{
-                System.out.println("Monton vacio");
+        int pos = 0;    // Posicion a extraer de baraja
+
+        // Primeras 16 cartas
+        for (int row = 0; row < 4; row++) {
+            for (int col = 0; col < 4; col++) {
+                montonInterior [row][col] = new Stack<>();
+                push(baraja.cartaAt(pos++),row,col);
             }
         }
-        System.out.println(toString());
+
+        // Diagonales
+        for (int d = 0; d < 4; d++) {
+            push(baraja.cartaAt(pos++),d,d);
+        }
+        for (int d = 0; d < 4; d++) {
+            push(baraja.cartaAt(pos++),(3-d),d);
+        }
+
+        // Ultimas 16 cartas
+        for (int row = 0; row < 4; row++) {
+            for (int col = 0; col < 4; col++) {
+                push(baraja.cartaAt(pos++),row,col);
+            }
+        }
+
+        // Zona exterior
+        for (int stack = 0; stack < 4; stack++) {
+            montonExterior [stack] = new Stack<>();
+        }
     }
+
+    /** Devuelve si la pila esta vacia
+     * @param row Fila de la zona interior
+     * @param col Columna de la zona interior
+     * @return true: Esta vacia
+     *         / false: No esta vacia
+     */
+    public boolean empty(int row, int col) {
+        return montonInterior[row][col].empty();
+    }
+
+    /** Devuelve si la pila esta vacia
+     * @param stack Numero (0-3) del stack exterior
+     * @return true: Esta vacia
+     *         / false: No esta vacia
+     */
+    public boolean empty(int stack) {
+        return montonExterior[stack].empty();
+    }
+
+    /** Devuelve si la carta en una posicion (no se elimina)
+     * @param row Fila de la zona interior
+     * @param col Columna de la zona interior
+     * @return Carta en esa posicion
+     */
+    public Carta peek (int row, int col){
+        return montonInterior[row][col].peek();
+    }
+
+    /** Devuelve si la carta en una posicion (no se elimina)
+     * @param stack Numero de stack exterior
+     * @return Carta en esa posicion
+     */
+    public Carta peek(int stack){
+        return montonExterior[stack].peek();
+    }
+
+    /** Devuelve si la carta en una posicion y la elimina
+     * @param row Fila de la zona interior
+     * @param col Columna de la zona interior
+     * @return Carta en esa posicion
+     */
+    public Carta pop(int row, int col){
+        return montonInterior[row][col].pop();
+    }
+
+    /** Devuelve si la carta en una posicion y la elimina
+     * @param item Carta a introducir
+     * @param row Fila de la zona interior
+     * @param col Columna de la zona interior
+     */
+    public void push(Carta item, int row, int col){
+        montonInterior[row][col].push(item);
+    }
+
+    /** Devuelve si la carta en una posicion y la elimina
+     * @param item Carta a introducir
+     * @param stack Numero de stack exterior
+     */
+    public void push(Carta item, int stack){
+        montonExterior[stack].push(item);
+    }
+
 }
