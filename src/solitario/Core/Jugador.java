@@ -23,7 +23,7 @@ public class Jugador {
      */
     public Jugador(String nombre){
         this.nombre = nombre;
-        this.mesa = new Mesa();
+        this.mesa = new Mesa(nombre);
     }
 
     /** Devuelve si una posicion esta vacia

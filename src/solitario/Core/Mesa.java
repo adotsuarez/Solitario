@@ -26,6 +26,8 @@ package solitario.Core;
 import java.util.Objects;
 import java.util.Stack;
 
+import static solitario.Core.Baraja.NUM_CARTAS;
+
 /**
  *
  * @author
@@ -41,36 +43,73 @@ public class Mesa {
 
     /** Constructor de una mesa con cartas aleatorias
      */
-    public Mesa () {
+    public Mesa (String nombre) {
         Baraja baraja = new Baraja();
-
-        baraja.barajar();
 
         montonInterior = new Stack [4][4];
         montonExterior = new Stack [4];
 
+        // Zona interior
+
         int pos = 0;    // Posicion a extraer de baraja
 
-        // Primeras 16 cartas
-        for (int row = 0; row < 4; row++) {
-            for (int col = 0; col < 4; col++) {
+        if (Objects.equals(nombre, "CHEATINGISNOTOK")) {
+
+
+            int row = 0;
+            int col = 0;
+
+            while (pos < NUM_CARTAS && row < 4) {
+
                 montonInterior [row][col] = new Stack<>();
                 push(baraja.cartaAt(pos++),row,col);
+
+
+                if (col == 3) {
+                    row++;
+                    col = 0;
+                } else {
+                    col++;
+                }
             }
-        }
 
-        // Diagonales
-        for (int d = 0; d < 4; d++) {
-            push(baraja.cartaAt(pos++),d,d);
-        }
-        for (int d = 0; d < 4; d++) {
-            push(baraja.cartaAt(pos++),(3-d),d);
-        }
+            for (int i = 0; i < 2; i++) {
 
-        // Ultimas 16 cartas
-        for (int row = 0; row < 4; row++) {
-            for (int col = 0; col < 4; col++) {
-                push(baraja.cartaAt(pos++),row,col);
+                row = 0;
+                col = 0;
+
+                while (pos < NUM_CARTAS && row < 4) {
+
+                    push(baraja.cartaAt(pos++),row,col);
+
+                    if (col == 3) {
+                        row++;
+                        col = 0;
+                    } else {
+                        col++;
+                    }
+                }
+            }
+
+        } else {
+
+            baraja.barajar();
+
+            // Primeras cartas (16*2)
+            for (int row = 0; row < 4; row++) {
+                for (int col = 0; col < 4; col++) {
+                    montonInterior [row][col] = new Stack<>();
+                    push(baraja.cartaAt(pos++),row,col);
+                    push(baraja.cartaAt(pos++),row,col);
+                }
+            }
+
+            // Diagonales
+            for (int d = 0; d < 4; d++) {
+                push(baraja.cartaAt(pos++),d,d);
+            }
+            for (int d = 0; d < 4; d++) {
+                push(baraja.cartaAt(pos++),(3-d),d);
             }
         }
 

@@ -108,6 +108,8 @@ public class Solitario {
                                             jugador.move(prevValues, stack);
                                             gameMode = Mode.RESTING;
                                             System.out.print(box(jugador));
+                                        } else {                        // No es un as
+                                            System.out.print(ES.errorInput("¡No es un as!",prev));
                                         }
 
                                     } else if (stackable(jugador.viewCarta
@@ -118,6 +120,8 @@ public class Solitario {
                                         jugador.move(prevValues,stack);
                                         gameMode = Mode.RESTING;
                                         System.out.print(box(jugador));
+                                    } else {                // No es apilable
+                                        System.out.print(ES.errorInput("¡No puedes sacar esta carta ahora!",prev));
                                     }
 
                                 }
@@ -261,7 +265,7 @@ public class Solitario {
                 rowComp = rowSelected;
                 colComp = colSelected;
 
-                while (rowComp < 4 && colComp < 4) {
+                while (rowComp < 4) {
                     if (!jugador.empty(rowSelected,colSelected)
                             && !jugador.empty(rowComp,colComp)) {       // Hay cartas en ambas pilas
 
