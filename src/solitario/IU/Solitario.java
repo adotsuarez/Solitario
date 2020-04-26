@@ -61,132 +61,131 @@ public class Solitario {
 
             do {        // Programa ejecutandose
 
-                do {    // Opcion correcta
-                    opt = transformInput(askForString());
+                opt = transformInput(askForString());
 
-                    if (validInput(opt)) {
-                        switch (opt) {
-                            case "CANCEL":
-                                if (showingInfo && gameMode == Mode.CARDSELECTED) {
-                                    System.out.print(box(jugador, prev));
-                                } else {
-                                    gameMode = Mode.RESTING;
-                                    System.out.print(box(jugador));
+                if (validInput(opt)) {
+                    switch (opt) {
+                        case "CANCEL":
+                            if (showingInfo && gameMode == Mode.CARDSELECTED) {
+                                System.out.print(box(jugador, prev));
+                            } else {
+                                gameMode = Mode.RESTING;
+                                System.out.print(box(jugador));
+                            }
+                            showingInfo = false;
+                            break;
+
+                        case "END":
+                            gameMode = Mode.STOPPED;
+                            break;
+
+                        case "RESTART":
+                            gameMode = Mode.RESTART;
+                            break;
+
+                        case "INFO":
+                            showingInfo = true;
+                            System.out.print(boxMsg("ℹ: http://cutt.ly/solitario",true));
+                            break;
+
+                        case "STACK":
+                            if (gameMode == Mode.CARDSELECTED) {
+                                prevValues = transformOption(prev);
+
+                                int stack = 0;
+                                while(!jugador.empty(stack)
+                                        && stack < 4
+                                        && jugador.viewCarta(prevValues[0],prevValues[1]).getPalo()
+                                        != jugador.viewCarta(stack).getPalo()) {
+                                    stack++;
                                 }
-                                showingInfo = false;
-                                break;
 
-                            case "END":
-                                gameMode = Mode.STOPPED;
-                                break;
-
-                            case "RESTART":
-                                gameMode = Mode.RESTART;
-                                break;
-
-                            case "INFO":
-                                showingInfo = true;
-                                System.out.print(boxMsg("ℹ: http://cutt.ly/solitario",true));
-                                break;
-
-                            case "STACK":
-                                if (gameMode == Mode.CARDSELECTED) {
-                                    prevValues = transformOption(prev);
-
-                                    int stack = 0;
-                                    while(!jugador.empty(stack)
-                                            && stack < 4
-                                            && jugador.viewCarta(prevValues[0],prevValues[1]).getPalo()
-                                            != jugador.viewCarta(stack).getPalo()) {
-                                        stack++;
-                                    }
-
-                                    if (jugador.empty(stack)) {     // A colocar en destino vacio
-                                        if (jugador.viewCarta
-                                                (prevValues[0],prevValues[1])
-                                                .getNumero() == 0) {      // Es un as
-                                            jugador.move(prevValues, stack);
-                                            gameMode = Mode.RESTING;
-                                            System.out.print(box(jugador));
-                                        } else {                        // No es un as
-                                            System.out.print(ES.errorInput("¡No es un as!",prev));
-                                        }
-
-                                    } else if (stackable(jugador.viewCarta
-                                                    (prevValues[0],prevValues[1]),
-                                            jugador.viewCarta(stack),
-                                            true)) {             // Verificamos si es apilable
-
-                                        jugador.move(prevValues,stack);
+                                if (jugador.empty(stack)) {     // A colocar en destino vacio
+                                    if (jugador.viewCarta
+                                            (prevValues[0],prevValues[1])
+                                            .getNumero() == 0) {      // Es un as
+                                        jugador.move(prevValues, stack);
                                         gameMode = Mode.RESTING;
                                         System.out.print(box(jugador));
-                                    } else {                // No es apilable
-                                        System.out.print(ES.errorInput("¡No puedes sacar esta carta ahora!",prev));
+                                    } else {                        // No es un as
+                                        System.out.print(ES.errorInput("¡No es un as!",prev));
                                     }
 
+                                } else if (stackable(jugador.viewCarta
+                                                (prevValues[0],prevValues[1]),
+                                        jugador.viewCarta(stack),
+                                        true)) {             // Verificamos si es apilable
+
+                                    jugador.move(prevValues,stack);
+                                    gameMode = Mode.RESTING;
+                                    System.out.print(box(jugador));
+                                } else {                // No es apilable
+                                    System.out.print(ES.errorInput("¡No puedes sacar esta carta ahora!",prev));
                                 }
-                                break;
 
-                            default:
-                                optValues = transformOption(opt);
+                            }
+                            break;
 
-                                // Hay una carta en la pila introducida?
-                                if (!jugador.empty(optValues[0],optValues[1])) {
+                        default:
+                            optValues = transformOption(opt);
 
-                                    // Hay ya una carta seleccionada?
-                                    if(gameMode == Mode.CARDSELECTED) {
+                            // Hay una carta en la pila introducida?
+                            if (!jugador.empty(optValues[0],optValues[1])) {
 
-                                        prevValues = transformOption(prev);
+                                // Hay ya una carta seleccionada?
+                                if(gameMode == Mode.CARDSELECTED) {
 
-                                        // Es posible apilar la opt sobre la prev?
-                                        if (stackable(jugador.viewCarta(prevValues[0],prevValues[1]),
-                                                jugador.viewCarta(optValues[0],optValues[1]),
-                                                false)) {
+                                    prevValues = transformOption(prev);
 
-                                            jugador.move(prevValues,optValues);
-                                            gameMode = Mode.RESTING;
-                                            System.out.print(box(jugador));
+                                    // Es posible apilar la opt sobre la prev?
+                                    if (stackable(jugador.viewCarta(prevValues[0],prevValues[1]),
+                                            jugador.viewCarta(optValues[0],optValues[1]),
+                                            false)) {
 
-                                        } else {    // No es posible apilar la carta nueva sobre prev
-                                            System.out.print(box(jugador,prev));
-                                        }
-                                    } else {    // No hay una carta seleccionada previamente
+                                        jugador.move(prevValues,optValues);
+                                        gameMode = Mode.RESTING;
+                                        System.out.print(box(jugador));
 
-                                        gameMode = Mode.CARDSELECTED;
-                                        prev = opt;
-
-                                        System.out.print(box(jugador,opt));
+                                    } else {    // No es posible apilar la carta nueva sobre prev
+                                        System.out.print(box(jugador,prev));
                                     }
-                                } else {
-                                    // Hay ya una carta seleccionada?
-                                    if(gameMode == Mode.CARDSELECTED) {
-                                        System.out.print(ES.errorInput("¡Pila sin cartas!",prev));
-                                    } else {    // No hay una carta seleccionada previamente
-                                        System.out.print(ES.errorInput("¡Pila sin cartas!"));
-                                    }
+                                } else {    // No hay una carta seleccionada previamente
+
+                                    gameMode = Mode.CARDSELECTED;
+                                    prev = opt;
+
+                                    System.out.print(box(jugador,opt));
                                 }
-                        }
+                            } else {
+                                // Hay ya una carta seleccionada?
+                                if(gameMode == Mode.CARDSELECTED) {
+                                    System.out.print(ES.errorInput("¡Pila sin cartas!",prev));
+                                } else {    // No hay una carta seleccionada previamente
+                                    System.out.print(ES.errorInput("¡Pila sin cartas!"));
+                                }
+                            }
+                    }
+                } else {
+                    System.out.print(ES.errorInput("¡Entrada incorrecta!"));
+                }
+
+                if (finished(jugador)) {
+                    System.out.print(ANSI_YELLOW
+                            + "Game over! ");
+                    if (won(jugador)) {
+                        System.out.print("Has ganado. ¡Felicidades!");
                     } else {
-                        System.out.print(ES.errorInput("¡Entrada incorrecta!"));
+                        System.out.print("No quedan movimientos.");
                     }
-
-                    if (finished(jugador)) {
-                        System.out.print(ANSI_YELLOW
-                                + "Game over! ");
-                        if (won(jugador)) {
-                            System.out.print("Has ganado. ¡Felicidades!");
-                        } else {
-                            System.out.print("No quedan movimientos.");
-                        }
-                        System.out.println(ANSI_DEFAULT);
-                        gameMode = Mode.STOPPED;
-                    }
-
-                } while (!validInput(opt));
+                    System.out.println(ANSI_DEFAULT);
+                    gameMode = Mode.STOPPED;
+                }
 
             } while (gameMode != Mode.STOPPED && gameMode != Mode.RESTART);
 
         } while (gameMode != Mode.STOPPED);
+
+        // END
     }
 
     /** Muestra pantalla inicio
