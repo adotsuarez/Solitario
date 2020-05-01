@@ -6,7 +6,6 @@ package solitario.IU;
 
 import solitario.Core.Carta;
 import solitario.Core.Jugador;
-import solitario.Core.Mesa;
 
 import static solitario.IU.ES.*;
 
@@ -61,7 +60,7 @@ public class Solitario {
 
             do {        // Programa ejecutandose
 
-                opt = transformInput(askForString());
+                opt = transformInput(askForInput());
 
                 if (validInput(opt)) {
                     switch (opt) {
@@ -193,7 +192,7 @@ public class Solitario {
      */
     private static String pantallaInicio() {
         System.out.print(boxMsg("Introduce tu nombre",true));
-        return askForString();
+        return askForInput();
     }
 
     /** Verifica si una carta puede ser colocada encima de otra

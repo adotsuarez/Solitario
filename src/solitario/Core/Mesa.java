@@ -42,6 +42,7 @@ public class Mesa {
     private Stack<Carta> [] montonExterior;
 
     /** Constructor de una mesa con cartas aleatorias
+     * @param nombre Nombre del jugador para cheatcode
      */
     public Mesa (String nombre) {
         Baraja baraja = new Baraja();

@@ -58,10 +58,10 @@ public class ES {
         return sb.toString();
     }
 
-    /** Devuelve un mensaje en caja principal
+    /** Solicita entrada de texto
      * @return String con el texto introducido por el usuario
      */
-    public static String askForString() {
+    public static String askForInput() {
         Scanner dataInput = new Scanner(System.in);
         return dataInput.nextLine();
     }
