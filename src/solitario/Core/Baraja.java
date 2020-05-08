@@ -5,9 +5,8 @@
  */
 package solitario.Core;
 
-import java.util.Arrays;
 import java.util.Collections;
-import java.util.List;
+import java.util.Stack;
 
 import static solitario.Core.Carta.LIMITE_CARTA_NUMERO;
 
@@ -23,7 +22,7 @@ import static solitario.Core.Carta.LIMITE_CARTA_NUMERO;
 public class Baraja {
 
     // Atributos
-    private Carta cartas[];
+    private Stack<Carta> cartas;     // Pila mejor que array
 
     /** Limite de cartas (limite de valor * numero de palos)
      */
@@ -32,45 +31,40 @@ public class Baraja {
     /** Constructor de una baraja
      */
     public Baraja() {
-        this.cartas = new Carta[NUM_CARTAS];
-        crearBaraja(); //Creamos la baraja
+        crearBaraja(); // Creamos la baraja
     }
 
     /** Crea la baraja ordenada
      */
     private void crearBaraja() {
-
-        int pos = 0;
-
         // Recorre los palos
         for (Palos palo : Palos.values()) {
             // Recorre los numeros
             for (int valor = 0; valor < LIMITE_CARTA_NUMERO; valor++) {
-                cartas[pos++] = new Carta(valor, palo);
+                cartas.push(new Carta(valor, palo));
             }
         }
-
     }
 
-    /** Devuelve la carta en una posicion
-     * @param pos Posicion pedida
-     * @return Carta en esa pos
+    /** Saca la carta del tope de la baraja
+     * @return Carta en el tope
      */
-    public Carta cartaAt(int pos) {
-        return cartas[pos];
+    public Carta sacarCarta() {
+        return cartas.pop();
     }
+
+    /** Devuelve si la baraja esta vacia
+     * @return true: Esta vacia
+     *         / false: No esta vacia
+     */
+    public boolean empty() {
+        return cartas.empty();
+    }
+
 
     /** Baraja todas las cartas
      */
     public void barajar() {
-
-        // Creamos una lista
-        List<Carta> listaCartas = Arrays.asList(cartas);
-
-        // La barajamos
-        Collections.shuffle(listaCartas);
-
-        // Lo devolvemos al vector
-        listaCartas.toArray(cartas);
+        Collections.shuffle(cartas);
     }
 }

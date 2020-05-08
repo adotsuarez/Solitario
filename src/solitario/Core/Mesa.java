@@ -52,18 +52,16 @@ public class Mesa {
 
         // Zona interior
 
-        int pos = 0;    // Posicion a extraer de baraja
-
         if (Objects.equals(nombre, "CHEATINGISNOTOK")) {
 
 
             int row = 0;
             int col = 0;
 
-            while (pos < NUM_CARTAS && row < 4) {
+            while (!baraja.empty() && row < 4) {
 
                 montonInterior [row][col] = new Stack<>();
-                push(baraja.cartaAt(pos++),row,col);
+                push(baraja.sacarCarta(),row,col);
 
 
                 if (col == 3) {
@@ -79,9 +77,9 @@ public class Mesa {
                 row = 0;
                 col = 0;
 
-                while (pos < NUM_CARTAS && row < 4) {
+                while (!baraja.empty() && row < 4) {
 
-                    push(baraja.cartaAt(pos++),row,col);
+                    push(baraja.sacarCarta(),row,col);
 
                     if (col == 3) {
                         row++;
@@ -100,17 +98,17 @@ public class Mesa {
             for (int row = 0; row < 4; row++) {
                 for (int col = 0; col < 4; col++) {
                     montonInterior [row][col] = new Stack<>();
-                    push(baraja.cartaAt(pos++),row,col);
-                    push(baraja.cartaAt(pos++),row,col);
+                    push(baraja.sacarCarta(),row,col);
+                    push(baraja.sacarCarta(),row,col);
                 }
             }
 
             // Diagonales
             for (int d = 0; d < 4; d++) {
-                push(baraja.cartaAt(pos++),d,d);
+                push(baraja.sacarCarta(),d,d);
             }
             for (int d = 0; d < 4; d++) {
-                push(baraja.cartaAt(pos++),(3-d),d);
+                push(baraja.sacarCarta(),(3-d),d);
             }
         }
 
