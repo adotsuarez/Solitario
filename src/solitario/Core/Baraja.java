@@ -37,6 +37,7 @@ public class Baraja {
     /** Crea la baraja ordenada
      */
     private void crearBaraja() {
+        cartas = new Stack<>();
         // Recorre los palos
         for (Palos palo : Palos.values()) {
             // Recorre los numeros
